@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfil de Usuario - Anime & Games TriviaDex</title>
+  <link rel="stylesheet" href="css/header.css"/>
+  <link rel="stylesheet" href="css/footer.css"/>
+  <link rel="stylesheet" href="css/profile.css"/>
+  <script defer src="js/loadComponents.js"></script>
+  <script defer src="js/profile.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <div class="content-wrapper">
+    <main class="profile-container">
+      <h1>Mi Perfil</h1>
+
+      <section class="profile-avatar-section">
+        <div class="avatar-preview">
+          <img id="avatar-img" src="img/default-avatar.png" alt="Avatar de Usuario"/>
+        </div>
+        <label class="btn-upload">
+          Cambiar Foto
+          <input type="file" id="avatar-input" accept="image/*" hidden/>
+        </label>
+      </section>
+
+      <section class="profile-form-section">
+        <form id="profile-form">
+          <div class="form-group">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" id="username" placeholder="Tu nombre de usuario" required/>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" placeholder="tu@ejemplo.com" required/>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="********" />
+          </div>
+          <div class="form-group">
+            <label for="theme">Tema</label>
+            <select id="theme">
+              <option value="light">Claro</option>
+              <option value="dark">Oscuro</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-save">Guardar cambios</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div id="footer-container"></div>
+</body>
+</html>

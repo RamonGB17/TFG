@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploración de Fichas - Anime & Games TriviaDex</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/explore.css">
+  <script defer src="js/loadComponents.js"></script>
+  <script defer src="js/explore.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <div class="content-wrapper">
+    <main class="explore-container">
+      <aside class="filters">
+        <h2>Filtros</h2>
+        <form id="filter-form">
+          <label for="categoria">Categoría:</label>
+          <select name="categoria" id="categoria">
+            <option value="todos">Todos</option>
+            <option value="anime">Anime</option>
+            <option value="videojuegos">Videojuegos</option>
+          </select>
+          
+          <label for="tipo">Tipo:</label>
+          <select name="tipo" id="tipo">
+          </select>
+          
+          <button type="submit" class="btn">Aplicar Filtros</button>
+        </form>
+      </aside>
+
+      <section class="fichas">
+        <h2>Fichas Disponibles</h2>
+        <div class="fichas-container">
+          <div class="ficha-card" data-categoria="anime" data-tipo="isekai">
+            <img src="img/miku.png" alt="Ficha de Anime: Miku Hatsune">
+            <h3>Miku Hatsune</h3>
+            <p>Descripción breve de la ficha...</p>
+            <a href="detalle-ficha.html" class="btn">Ver Detalles</a>
+          </div>
+          <div class="ficha-card" data-categoria="videojuegos" data-tipo="deportes">
+            <img src="img/miku.png" alt="Ficha de Videojuego: Ejemplo">
+            <h3>Videojuego Ejemplo</h3>
+            <p>Descripción breve de la ficha...</p>
+            <a href="detalle-ficha.html" class="btn">Ver Detalles</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="footer-container"></div>
+</body>
+</html>

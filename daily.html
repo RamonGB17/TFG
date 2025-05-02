@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad Diaria - Adivina el Personaje</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/daily.css">
+  <script defer src="js/loadComponents.js"></script>
+  <script defer src="js/daily.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <div class="content-wrapper">
+    <main class="daily-container">
+      <h1>Adivina el Personaje del Día</h1>
+      <p class="daily-instructions">
+        Introduce un nombre y compara sus características con el personaje oculto.
+      </p>
+
+      <div class="daily-input">
+        <input 
+          id="guess-input" 
+          list="characters-list" 
+          placeholder="Escribe el nombre..." 
+          autocomplete="off"
+        >
+        <datalist id="characters-list"></datalist>
+        <button id="guess-btn">Adivinar</button>
+      </div>
+
+      <table class="guesses-table">
+        <thead>
+          <tr>
+            <th>Personaje</th>
+            <th>Género</th>
+            <th>Anime</th>
+            <th>Especie</th>
+            <th>Año</th>
+          </tr>
+        </thead>
+        <tbody id="guesses-body">
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <div id="congrats-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <h2>¡Felicidades!</h2>
+      <p>Has acertado el personaje del día.</p>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+</body>
+</html>

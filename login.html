@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar Sesión – Anime & Games TriviaDex</title>
+  <link rel="stylesheet" href="css/loginSigIn.css">
+  <script defer src="js/login.js"></script>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-image">
+      <h2>Explora el mundo del Anime y los Videojuegos</h2>
+      <p>Inicia sesión y demuestra cuánto sabes.</p>
+      <img src="img/Anime_Games_TriviaDex_Transparent-removebg-preview.png" alt="Imagen de Anime y Videojuegos">
+    </div>
+    <div class="auth-form">
+      <h2>Iniciar Sesión</h2>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Correo electrónico" required>
+          <span class="error-message" id="error-email"></span>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <span class="error-message" id="error-password"></span>
+        </div>
+        <button type="submit" class="btn">Ingresar</button>
+      </form>
+      <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+    </div>
+  </div>
+</body>
+</html>

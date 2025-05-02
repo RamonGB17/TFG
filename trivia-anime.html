@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivia de Anime</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/trivia-anime.css">
+  <script defer src="js/loadComponents.js"></script>
+  <script defer src="js/trivia-anime.js"></script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <div class="content-wrapper">
+    <main class="trivia-container">
+      <div class="trivia-background"></div>
+
+      <div class="trivia-content">
+        <header class="trivia-header">
+          <h1>Trivia de Anime</h1>
+          <div class="timer">
+            <span id="time">30</span>
+          </div>
+        </header>
+
+        <section class="trivia-question">
+          <p id="question-text">¿Cuál es el nombre del protagonista de "Dragon Ball"?</p>
+        </section>
+
+        <section class="trivia-options">
+          <button class="option-btn" data-answer="Goku">Goku</button>
+          <button class="option-btn" data-answer="Vegeta">Vegeta</button>
+          <button class="option-btn" data-answer="Piccolo">Piccolo</button>
+          <button class="option-btn" data-answer="Gohan">Gohan</button>
+        </section>
+
+        <section class="trivia-feedback" id="feedback"></section>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-container"></div>
+</body>
+</html>

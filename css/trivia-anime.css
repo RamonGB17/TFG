@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #FAF3E0;
+    overflow-x: hidden;
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    position: relative;
+  }
+  
+  .trivia-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    z-index: 2;
+  }
+  
+  .trivia-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('img/miku.png') center/cover no-repeat;
+    filter: blur(8px);
+    opacity: 0.3;
+    z-index: 1;
+  }
+  
+  .trivia-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .trivia-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .trivia-header h1 {
+    font-size: 2.5em;
+    color: #2F3542;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .timer {
+    display: inline-block;
+    font-size: 1.2em;
+    color: #FF6B81;
+    background: #fff;
+    border: 2px solid #FF6B81;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 46px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .trivia-question {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  #question-text {
+    font-size: 1.3em;
+    color: #2F3542;
+  }
+  
+  .trivia-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .option-btn {
+    flex: 1 1 40%;
+    min-width: 150px;
+    padding: 12px;
+    font-size: 1em;
+    background: linear-gradient(45deg, #FF6B81, #70A1FF);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .option-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #E0586E, #5080D1);
+  }
+  
+  .trivia-feedback {
+    text-align: center;
+    font-size: 1.2em;
+    color: #2F3542;
+    min-height: 30px;
+  }
+  
+  @media (max-width: 480px) {
+    .option-btn {
+      flex: 1 1 100%;
+    }
+  }
+  
