@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actividad Diaria - Adivina el Personaje</title>
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/daily.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personaje del Día</title>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/daily.css" />
   <script defer src="js/loadComponents.js"></script>
   <script defer src="js/daily.js"></script>
 </head>
@@ -15,41 +15,37 @@
 
   <div class="content-wrapper">
     <main class="daily-container">
-      <h1>Adivina el Personaje del Día</h1>
-      <p class="daily-instructions">
-        Introduce un nombre y compara sus características con el personaje oculto.
-      </p>
+      <h1>¿Quién es el personaje del día?</h1>
+      <p>Intenta adivinar el personaje. Verás si coinciden los atributos.</p>
 
-      <div class="daily-input">
-        <input 
-          id="guess-input" 
-          list="characters-list" 
-          placeholder="Escribe el nombre..." 
-          autocomplete="off"
-        >
-        <datalist id="characters-list"></datalist>
+      <div class="input-group">
+        <div class="autocomplete-wrapper">
+          <input type="text" id="guess-input" placeholder="Escribe el nombre..." />
+          <ul id="autocomplete-list"></ul>
+        </div>
         <button id="guess-btn">Adivinar</button>
       </div>
 
-      <table class="guesses-table">
+      <table class="guess-table">
         <thead>
           <tr>
-            <th>Personaje</th>
+            <th>Nombre</th>
             <th>Género</th>
-            <th>Anime</th>
             <th>Especie</th>
             <th>Año</th>
+            <th>Franquicia</th>
           </tr>
         </thead>
-        <tbody id="guesses-body">
-        </tbody>
+        <tbody id="guesses-body"></tbody>
       </table>
     </main>
   </div>
 
-  <div id="congrats-modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="modal-close" class="modal-close">&times;</span>
+  <!-- Modal centrado -->
+  <div class="modal hidden" id="congrats-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <span id="modal-close">&times;</span>
       <h2>¡Felicidades!</h2>
       <p>Has acertado el personaje del día.</p>
     </div>

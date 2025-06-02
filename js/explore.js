@@ -1,71 +1,63 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
   const categoriaSelect = document.getElementById("categoria");
   const tipoSelect = document.getElementById("tipo");
-  const filterForm = document.getElementById("filter-form");
-  const fichaCards = document.querySelectorAll(".ficha-card");
+  const fichasContainer = document.getElementById("fichas-container");
+  let personajes = [];
 
-  const typeOptions = {
-    anime: [
-      { value: "todos", text: "Todos" },
-      { value: "isekai", text: "Isekai" },
-      { value: "shonen", text: "Shonen" },
-      { value: "shojo", text: "Shojo" }
-    ],
-    videojuegos: [
-      { value: "todos", text: "Todos" },
-      { value: "deportes", text: "Deportes" },
-      { value: "shooters", text: "Shooters" },
-      { value: "rpg", text: "RPG" }
-    ]
-  };
+  // Cargar personajes desde backend
+  fetch("http://localhost:8080/api/characters")
+    .then(res => res.json())
+    .then(data => {
+      personajes = data;
+      mostrarPersonajes(personajes);
+      cargarTiposUnicos(personajes);
+    });
 
-  function updateTipoOptions() {
-    const selectedCategory = categoriaSelect.value;
-    tipoSelect.innerHTML = '';
+  // Mostrar personajes
+  function mostrarPersonajes(lista) {
+    fichasContainer.innerHTML = "";
+    lista.forEach(p => {
+      const ficha = document.createElement("div");
+      ficha.className = "ficha-card";
+      ficha.setAttribute("data-categoria", p.franchise.type);
+      ficha.setAttribute("data-tipo", p.franchise.name);
 
-    if (selectedCategory === "anime") {
-      typeOptions.anime.forEach(opt => {
-        const optionElem = document.createElement("option");
-        optionElem.value = opt.value;
-        optionElem.textContent = opt.text;
-        tipoSelect.appendChild(optionElem);
-      });
-    } else if (selectedCategory === "videojuegos") {
-      typeOptions.videojuegos.forEach(opt => {
-        const optionElem = document.createElement("option");
-        optionElem.value = opt.value;
-        optionElem.textContent = opt.text;
-        tipoSelect.appendChild(optionElem);
-      });
-    } else {
-      const optionElem = document.createElement("option");
-      optionElem.value = "todos";
-      optionElem.textContent = "Todos";
-      tipoSelect.appendChild(optionElem);
-    }
+      ficha.innerHTML = `
+        <img src="img/${p.imageFilename || 'default.png'}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.franchise.name}</p>
+        <a href="detalle-ficha.html?id=${p.id}" class="btn">Ver Detalles</a>
+      `;
+      fichasContainer.appendChild(ficha);
+    });
   }
 
-  categoriaSelect.addEventListener("change", updateTipoOptions);
-  updateTipoOptions();
-
-  filterForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const selectedCategoria = categoriaSelect.value;
-    const selectedTipo = tipoSelect.value;
-
-    fichaCards.forEach(card => {
-      const cardCategoria = card.getAttribute("data-categoria");
-      const cardTipo = card.getAttribute("data-tipo");
-      let show = true;
-
-      if (selectedCategoria !== "todos" && cardCategoria !== selectedCategoria) {
-        show = false;
-      }
-      if (selectedTipo !== "todos" && cardTipo !== selectedTipo) {
-        show = false;
-      }
-
-      card.style.display = show ? "block" : "none";
+  // Rellenar <select> de tipos
+  function cargarTiposUnicos(lista) {
+    const tipos = [...new Set(lista.map(p => p.franchise.name))];
+    tipoSelect.innerHTML = '<option value="todos">Todos</option>';
+    tipos.forEach(tipo => {
+      const option = document.createElement("option");
+      option.value = tipo;
+      option.textContent = tipo;
+      tipoSelect.appendChild(option);
     });
-  });
+  }
+
+  // Eventos de filtro
+  categoriaSelect.addEventListener("change", aplicarFiltros);
+  tipoSelect.addEventListener("change", aplicarFiltros);
+
+  function aplicarFiltros() {
+    const categoria = categoriaSelect.value;
+    const tipo = tipoSelect.value;
+
+    const filtrados = personajes.filter(p => {
+      const catOk = categoria === "todos" || p.franchise.type === categoria;
+      const tipoOk = tipo === "todos" || p.franchise.name === tipo;
+      return catOk && tipoOk;
+    });
+
+    mostrarPersonajes(filtrados);
+  }
 });

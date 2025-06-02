@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exploración de Fichas - Anime & Games TriviaDex</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explorar Personajes</title>
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/explore.css">
@@ -14,45 +14,103 @@
   <div id="header-container"></div>
 
   <div class="content-wrapper">
-    <main class="explore-container">
-      <aside class="filters">
-        <h2>Filtros</h2>
-        <form id="filter-form">
-          <label for="categoria">Categoría:</label>
-          <select name="categoria" id="categoria">
-            <option value="todos">Todos</option>
-            <option value="anime">Anime</option>
-            <option value="videojuegos">Videojuegos</option>
-          </select>
-          
-          <label for="tipo">Tipo:</label>
-          <select name="tipo" id="tipo">
-          </select>
-          
-          <button type="submit" class="btn">Aplicar Filtros</button>
-        </form>
-      </aside>
+    <div class="explore-container">
+      <!-- Filtros -->
+      <div class="filters">
+        <h2>Filtrar</h2>
+        <label for="categoria">Categoría</label>
+        <select id="categoria">
+          <option value="todos">Todos</option>
+          <option value="anime">Anime</option>
+          <option value="videojuego">Videojuego</option>
+        </select>
 
-      <section class="fichas">
-        <h2>Fichas Disponibles</h2>
-        <div class="fichas-container">
-          <div class="ficha-card" data-categoria="anime" data-tipo="isekai">
-            <img src="img/miku.png" alt="Ficha de Anime: Miku Hatsune">
-            <h3>Miku Hatsune</h3>
-            <p>Descripción breve de la ficha...</p>
-            <a href="detalle-ficha.html" class="btn">Ver Detalles</a>
-          </div>
-          <div class="ficha-card" data-categoria="videojuegos" data-tipo="deportes">
-            <img src="img/miku.png" alt="Ficha de Videojuego: Ejemplo">
-            <h3>Videojuego Ejemplo</h3>
-            <p>Descripción breve de la ficha...</p>
-            <a href="detalle-ficha.html" class="btn">Ver Detalles</a>
-          </div>
+        <label for="tipo">Tipo</label>
+        <select id="tipo">
+          <option value="todos">Todos</option>
+        </select>
+      </div>
+
+      <!-- Contenedor de fichas -->
+      <div class="fichas">
+        <h2>Personajes</h2>
+        <div class="fichas-container" id="fichas-container">
+          <!-- Las fichas se insertan por JS -->
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   </div>
 
   <div id="footer-container"></div>
 </body>
+</html>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const categoriaSelect = document.getElementById("categoria");
+      const tipoSelect = document.getElementById("tipo");
+      const fichasContainer = document.getElementById("fichas-container");
+      let personajes = [];
+
+      // Cargar personajes desde backend
+      fetch("http://localhost:8080/api/characters")
+        .then(res => res.json())
+        .then(data => {
+          personajes = data;
+          mostrarPersonajes(personajes);
+          cargarTiposUnicos(personajes);
+        });
+
+      // Mostrar personajes
+      function mostrarPersonajes(lista) {
+        fichasContainer.innerHTML = "";
+        lista.forEach(p => {
+          const ficha = document.createElement("div");
+          ficha.className = "ficha-card";
+          ficha.setAttribute("data-categoria", p.franchise.type);
+          ficha.setAttribute("data-tipo", p.franchise.name);
+
+          ficha.innerHTML = `
+            <img src="img/${p.imageFilename || 'default.png'}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>${p.franchise.name}</p>
+            <a href="detalle-ficha.html?id=${p.id}" class="btn">Ver Detalles</a>
+          `;
+          fichasContainer.appendChild(ficha);
+        });
+      }
+
+      // Rellenar select de tipos
+      function cargarTiposUnicos(lista) {
+        const tipos = [...new Set(lista.map(p => p.franchise.name))];
+        tipoSelect.innerHTML = '<option value="todos">Todos</option>';
+        tipos.forEach(tipo => {
+          const option = document.createElement("option");
+          option.value = tipo;
+          option.textContent = tipo;
+          tipoSelect.appendChild(option);
+        });
+      }
+
+      // Aplicar filtros
+      categoriaSelect.addEventListener("change", aplicarFiltros);
+      tipoSelect.addEventListener("change", aplicarFiltros);
+
+      function aplicarFiltros() {
+        const categoria = categoriaSelect.value;
+        const tipo = tipoSelect.value;
+
+        const filtrados = personajes.filter(p => {
+          const catOk = categoria === "todos" || p.franchise.type === categoria;
+          const tipoOk = tipo === "todos" || p.franchise.name === tipo;
+          return catOk && tipoOk;
+        });
+
+        mostrarPersonajes(filtrados);
+      }
+    });
+  </script>
+</body>
+
 </html>
